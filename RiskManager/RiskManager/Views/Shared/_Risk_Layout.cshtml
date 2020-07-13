@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>@ViewBag.Title</title>
+    <link href="/scripts/artdialog/ui-dialog.css" rel="stylesheet" type="text/css" />
+    <link href="/skin/default/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/js/layui/css/layui.css" media="all">
+    @RenderSection("css", false)
+    <script type="text/javascript" charset="utf-8" src="/Scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/Scripts/jquery/jquery.nicescroll.js"></script>
+    <script src="/js/layui/layui.js" charset="utf-8"></script>
+    @RenderSection("js", false)
+    <script type="text/javascript" charset="utf-8" src="/Scripts/artdialog/dialog-plus-min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/layindex.js"></script>
+    <script src="/js/vue.js"></script>
+    <script src="/js/vue-resource.js"></script>
+    <script type="text/javascript">
+        //页面加载完成时
+        $(function () {
+            //检测IE
+            if ('undefined' == typeof (document.body.style.maxHeight)) {
+                window.location.href = 'ie6update.html';
+            }
+        });
+    </script>
+</head>
+<body class="indexbody">
+
+    <!--全局菜单-->
+    <a class="btn-paograms" style="display:none;" onclick="togglePopMenu();"></a>
+    <div id="pop-menu" class="pop-menu">
+        <div class="pop-box">
+            <h1 class="title"><i></i>导航菜单</h1>
+            <i class="close" onclick="togglePopMenu();">关闭</i>
+            <div class="list-box">
+                <ul>
+                    <li><a href="/AdminManage/Index?iscode=1">管理中心</a></li>
+                </ul>
+            </div>
+        </div>
+        <i class="arrow">箭头</i>
+    </div>
+    <!--/全局菜单-->
+
+    <div class="main-top">
+        <a class="icon-menu"></a>
+        <div id="main-nav" class="main-nav">
+        </div>
+        <div class="nav-right">
+            <div class="info">
+                <i></i>
+                <span>您好，@Html.Raw(ViewBag.Admin)</span>
+            </div>
+            <div class="option">
+                <i></i>
+                <div class="drop-wrap">
+                    <div class="arrow"></div>
+                    <ul class="item">
+                        <li>
+                            <a href="/AdminManage/Index?iscode=1" @*target="mainframe"*@>管理中心</a>
+                        </li>
+                        <li>
+                            <a href="javascript:ShowReports('修改密码','/AdminManage/ChangePassword',700,400);">修改密码</a>
+                        </li>
+                        <li>
+                            <a id="lbtnExit" href="javascript: if (confirm('是否确认注销？')) { location.href = '/AdminManage/Logout';  } ;">注销登录</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-lttop" style="display:block">
+        <div class="main-ltleft">〈</div>
+        <div class="main-list main-ltlist">
+            <ul class="main-over">
+            </ul>
+        </div>
+        <div class="main-ltright">〉</div>
+    </div>
+
+    <div class="main-left">
+        <h1 class="logo"></h1>
+        <div id="sidebar-nav" class="sidebar-nav">
+
+            @foreach (var menuhead in ViewBag.Menus)
+            {
+                if (menuhead.HideStatus == 0 && menuhead.PermissionType.Contains("Show"))
+                {
+                    <div class="list-group selected" style="display: none;">
+                        <h1 title="@menuhead.Title"><img src="/skin/default/nav/sys.png"></h1>
+                        <div class="list-wrap">
+                            <h2>@menuhead.Title<i></i></h2>
+                            <ul style="display: block;">
+                                @if (menuhead.MenuLefts != null)
+                                {
+                                    foreach (var menuleft in menuhead.MenuLefts)
+                                    {
+                                        if (menuleft.HideStatus == 0)
+                                        {
+                                            if (menuleft.State == 0 && menuleft.MenuDetails != null)
+                                            {
+                                                <li>
+                                                    <a navid="sys_custom_reply" href="javascript:void(0)">
+                                                        <span>@menuleft.Title</span>
+                                                        <b class="expandable close"></b>
+                                                    </a>
+                                                    <ul style="display: none;">
+                                                        @if (menuleft.MenuDetails != null)
+                                                        {
+                                                            foreach (var menudetails in menuleft.MenuDetails)
+                                                            {
+                                                                if (menudetails.HideStatus == 0 && menudetails.PermissionType.Contains("View"))
+                                                                {
+                                                                    <li>
+                                                                        <a navid="@menudetails.Action" href="/@menudetails.Controller/@menudetails.Action@menudetails.Keywords" rel="author" @*target="mainframe"*@>
+                                                                            <span>@menudetails.Title</span>
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        }
+                                                    </ul>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                if (menuleft.PermissionType.Contains("View"))
+                                                {
+                                                    <li>
+                                                        <a navid="@menuleft.Action" href="/@menuleft.Controller/@menuleft.Action@menuleft.Keywords" @*target="mainframe"*@>
+                                                            <span>@menuleft.Title</span>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <!--加载效果-->
+    <div class="loading">
+        <div class="pic">
+            <!--外面的圈圈-->
+            <span></span>
+            <!--数据加载进度（百分比数字）-->
+            <b>加载中...</b>
+        </div>
+    </div>
+
+    <div class="main-container">
+        @RenderBody()
+    </div>
+    @RenderSection("jsbottom", false)
+</body>
+</html>
