@@ -8,3 +8,8 @@
 /RiskManager/Services/Share.Entity/obj
 /RiskManager/RiskManager/obj
 /.vs
+/RiskManager/RiskManager/bin/Debug/netcoreapp3.1
+/RiskManager/Services/Share.Data/bin/Debug/netcoreapp3.1
+/RiskManager/Services/Share.Entity/bin/Debug/netcoreapp3.1
+/RiskManager/Services/Share.Facade/bin/Debug/netcoreapp3.1
+/RiskManager/Services/Share.IData/bin/Debug/netcoreapp3.1

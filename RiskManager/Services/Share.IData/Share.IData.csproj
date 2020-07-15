@@ -8,4 +8,8 @@
     <PackageReference Include="UniversalFrame.Core" Version="1.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Share.Entity\Share.Entity.csproj" />
+  </ItemGroup>
+
 </Project>

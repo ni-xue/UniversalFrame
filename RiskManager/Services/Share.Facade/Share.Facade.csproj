@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Share.Data\Share.Data.csproj" />
-    <ProjectReference Include="..\Share.IData\Share.IData.csproj" />
   </ItemGroup>
 
 </Project>
