@@ -3,3 +3,7 @@
 ################################################################################
 
 /RiskManager/Services/Share.Data/obj
+/RiskManager/Services/Share.IData/obj
+/RiskManager/Services/Share.Facade/obj
+/RiskManager/Services/Share.Entity/obj
+/RiskManager/RiskManager/obj
