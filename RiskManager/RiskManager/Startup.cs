@@ -53,7 +53,7 @@ namespace RiskManager
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "Api/{controller=Risk}/{action=ILogin}");
+                    template: "Api/{controller=RiskServers}/{action=GetAsync}");
             });
             //Microsoft.AspNetCore.Mvc.Routing.MvcRouteHandler//MvcBuilder//AttributeRouting.CreateAttributeMegaRoute(app.ApplicationServices)
             app.UseMvc(routes =>
