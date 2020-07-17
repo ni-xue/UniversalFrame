@@ -174,7 +174,7 @@ namespace Share.Data.DbSqlProvider
 		{
 			get
 			{
-				return "@";
+				return ":";
 			}
 		}
 	}
