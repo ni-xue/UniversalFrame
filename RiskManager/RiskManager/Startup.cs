@@ -34,8 +34,6 @@ namespace RiskManager
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //HttpContextExtension.Current.//env.IsDevelopment
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -55,15 +53,12 @@ namespace RiskManager
                     name: "default",
                     template: "Api/{controller=RiskServers}/{action=GetAsync}");
             });
-            //Microsoft.AspNetCore.Mvc.Routing.MvcRouteHandler//MvcBuilder//AttributeRouting.CreateAttributeMegaRoute(app.ApplicationServices)
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Risk}/{action=Login}/{id?}");
             });
-
-            //app.UseSession();
         }
         public void AllException(HttpContext context, Exception exception)
         {
