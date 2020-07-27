@@ -29,6 +29,11 @@ namespace Share.Facade.Facade
             return ShareDB.Get();
         }
 
+        public DataTable Select() 
+        {
+            return ShareDB.Select();
+        }
+
         public PagerSet GetPager()
         {
             return ShareDB.GetPager();

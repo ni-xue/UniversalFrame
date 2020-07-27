@@ -11,6 +11,8 @@ namespace Share.IData
     {
         DataSet Get();
 
+        DataTable Select();
+
         PagerSet GetPager();
     }
 }

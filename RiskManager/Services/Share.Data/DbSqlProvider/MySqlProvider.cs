@@ -56,47 +56,47 @@ namespace Share.Data.DbSqlProvider
             return MySqlDbType.Int32;
         }
 
-        /// <summary>
-        /// 根据<see cref="Type"/>类型获取对应的类型字符串
-        /// </summary>
-        /// <param name="netType"><see cref="Type"/>类型</param>
-        /// <returns>类型字符串</returns>
-        public string ConvertToLocalDbTypeString(Type netType)
-        {
-            string key = netType.ToString();
-            switch (key)
-            {
-                case "System.Boolean":
-                    return "bit";
-                case "System.DateTime":
-                    return "datetime";
-                case "System.Decimal":
-                    return "decimal";
-                case "System.Single":
-                    return "float";
-                case "System.Double":
-                    return "float";
-                case "System.Int64":
-                    return "bigint";
-                case "System.Int32":
-                    return "int";
-                case "System.String":
-                    return "nvarchar";
-                case "System.Int16":
-                    return "smallint";
-                case "System.Byte":
-                    return "tinyint";
-                case "System.Guid":
-                    return "uniqueidentifier";
-                case "System.TimeSpan":
-                    return "time";
-                case "System.Byte[]":
-                    return "image";
-                case "System.Object":
-                    return "sql_variant";
-            }
-            return null;
-        }
+        ///// <summary>
+        ///// 根据<see cref="Type"/>类型获取对应的类型字符串
+        ///// </summary>
+        ///// <param name="netType"><see cref="Type"/>类型</param>
+        ///// <returns>类型字符串</returns>
+        //public string ConvertToLocalDbTypeString(Type netType)
+        //{
+        //    string key = netType.ToString();
+        //    switch (key)
+        //    {
+        //        case "System.Boolean":
+        //            return "bit";
+        //        case "System.DateTime":
+        //            return "datetime";
+        //        case "System.Decimal":
+        //            return "decimal";
+        //        case "System.Single":
+        //            return "float";
+        //        case "System.Double":
+        //            return "float";
+        //        case "System.Int64":
+        //            return "bigint";
+        //        case "System.Int32":
+        //            return "int";
+        //        case "System.String":
+        //            return "nvarchar";
+        //        case "System.Int16":
+        //            return "smallint";
+        //        case "System.Byte":
+        //            return "tinyint";
+        //        case "System.Guid":
+        //            return "uniqueidentifier";
+        //        case "System.TimeSpan":
+        //            return "time";
+        //        case "System.Byte[]":
+        //            return "image";
+        //        case "System.Object":
+        //            return "sql_variant";
+        //    }
+        //    return null;
+        //}
 
         /// <summary>
         /// 验证对象信息，并填充进<see cref="SqlCommand"/>集合中
@@ -131,36 +131,14 @@ namespace Share.Data.DbSqlProvider
         /// <param name="sourceColumn">源列</param>
         /// <param name="size">大小</param>
         /// <returns></returns>
-        public DbParameter MakeParam(string paraName, object paraValue, ParameterDirection direction, Type paraType, string sourceColumn, int size)
+        public void GetParam(DbParameter paraName, object paraValue, ParameterDirection direction, Type paraType, string sourceColumn, int size)
         {
             //SqlParameter sqlParameter = new SqlParameter
-            MySqlParameter sqlParameter = new MySqlParameter
-            {
-                ParameterName = this.ParameterPrefix + paraName
-            };
+            MySqlParameter sqlParameter = paraName as MySqlParameter;
             if (paraType != null)
             {
                 sqlParameter.MySqlDbType = this.ConvertToLocalDbType(paraType).ToVar<MySqlDbType>();
             }
-            sqlParameter.Value = paraValue;
-            if (sqlParameter.Value == null)
-            {
-                sqlParameter.Value = DBNull.Value;
-            }
-            sqlParameter.Direction = direction;
-            if (direction != ParameterDirection.Output || paraValue != null)
-            {
-                sqlParameter.Value = paraValue;
-            }
-            if (direction == ParameterDirection.Output)
-            {
-                sqlParameter.Size = size;
-            }
-            if (sourceColumn != null)
-            {
-                sqlParameter.SourceColumn = sourceColumn;
-            }
-            return sqlParameter;
         }
 
         public PagerSet GetPagerSet(DbHelper dbHelper, PagerParameters pramsPager)
