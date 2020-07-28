@@ -32,6 +32,8 @@ namespace Share.Data
             //查询
             System.Data.DataSet ds = Database.Query("SELECT * FROM system WHERE Id=@a OrDER by id desc", new { a = 1, b = "2", c = true, d = DateTime.Now, e = new byte[] { 60, 254 } });
 
+            System.Data.SqlClient.SqlDataAdapter sqlDataReader = Database.CreateDataAdapter<System.Data.SqlClient.SqlDataAdapter>();
+
             //获取新创建的事物对象
             MySql.Data.MySqlClient.MySqlTransaction sqlConnection = Database.CreateTransaction<MySql.Data.MySqlClient.MySqlTransaction>();
 
@@ -51,6 +53,7 @@ namespace Share.Data
             }
             //trans.Exception;//异常情况
 
+            //通过才存储过程名称获取其需要的参数。
             System.Data.Common.DbParameter[] dbParameter = Database.GetSpParameterSet("spName");
 
             //直接使用事物的操作方式
@@ -58,7 +61,7 @@ namespace Share.Data
 
             //新增
             //var da1 = Database.Insert("system", new { id = 4, key_en = "market", key_cn = "可用积分价值", value = "1" });
-            //var da1_1 = Database.Insert<system>(new { id = 4, key_en = "market", key_cn = "可用积分价值", value = "1" });
+            //var da1_1 = Database.Insert<system>(new { id = 4, key_en = "market", key_cn = "可用积分价值", value = "1" });dao
 
             //修改
             //var da2 = Database.Update("system", "WHERE Id=@a", new { value = 5 }, new { a = 4 });

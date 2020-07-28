@@ -1,168 +1,183 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@ViewBag.Title</title>
-    <link href="/scripts/artdialog/ui-dialog.css" rel="stylesheet" type="text/css" />
-    <link href="/skin/default/style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="~/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="~/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/css/styles.css">
     @RenderSection("css", false)
-    <script type="text/javascript" charset="utf-8" src="/Scripts/jquery/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/Scripts/jquery/jquery.nicescroll.js"></script>
-    <script src="/js/layui/layui.js" charset="utf-8"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/vendor/popper.js/popper.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="~/vendor/chart.js/chart.min.js"></script>
+    <script src="~/js/carbon.js"></script>
+
     @RenderSection("js", false)
-    <script type="text/javascript" charset="utf-8" src="/Scripts/artdialog/dialog-plus-min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/js/common.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/js/layindex.js"></script>
-    <script src="/js/vue.js"></script>
-    <script src="/js/vue-resource.js"></script>
-    <script type="text/javascript">
-        //页面加载完成时
-        $(function () {
-            //检测IE
-            if ('undefined' == typeof (document.body.style.maxHeight)) {
-                window.location.href = 'ie6update.html';
-            }
-        });
-    </script>
 </head>
-<body class="indexbody">
+<body class="sidebar-fixed header-fixed">
+    <div class="page-wrapper">
+        <nav class="navbar page-header">
+            <a href="#" class="btn btn-link sidebar-mobile-toggle d-md-none mr-auto">
+                <i class="fa fa-bars"></i>
+            </a>
 
-    <!--全局菜单-->
-    <a class="btn-paograms" style="display:none;" onclick="togglePopMenu();"></a>
-    <div id="pop-menu" class="pop-menu">
-        <div class="pop-box">
-            <h1 class="title"><i></i>导航菜单</h1>
-            <i class="close" onclick="togglePopMenu();">关闭</i>
-            <div class="list-box">
-                <ul>
-                    <li><a href="/AdminManage/Index?iscode=1">管理中心</a></li>
-                </ul>
-            </div>
-        </div>
-        <i class="arrow">箭头</i>
-    </div>
-    <!--/全局菜单-->
+            <a class="navbar-brand" href="#">
+                @*<img src="~/imgs/logo.png" alt="logo">*@
+                <p class="font-weight-bold mb-1" id="ranks">您今日排名 </p>
+            </a>
 
-    <div class="main-top">
-        <a class="icon-menu"></a>
-        <div id="main-nav" class="main-nav">
-        </div>
-        <div class="nav-right">
-            <div class="info">
-                <i></i>
-                <span>您好，@Html.Raw(ViewBag.Admin)</span>
-            </div>
-            <div class="option">
-                <i></i>
-                <div class="drop-wrap">
-                    <div class="arrow"></div>
-                    <ul class="item">
-                        <li>
-                            <a href="/AdminManage/Index?iscode=1" @*target="mainframe"*@>管理中心</a>
-                        </li>
-                        <li>
-                            <a href="javascript:ShowReports('修改密码','/AdminManage/ChangePassword',700,400);">修改密码</a>
-                        </li>
-                        <li>
-                            <a id="lbtnExit" href="javascript: if (confirm('是否确认注销？')) { location.href = '/AdminManage/Logout';  } ;">注销登录</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+            <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
+                <i class="fa fa-bars"></i>
+            </a>
 
-    <div class="main-lttop" style="display:block">
-        <div class="main-ltleft">〈</div>
-        <div class="main-list main-ltlist">
-            <ul class="main-over">
+            <ul class="navbar-nav ml-auto">
+                @*<li class="nav-item d-md-down-none">
+                        <a href="#">
+                            <i class="fa fa-bell"></i>
+                            <span class="badge badge-pill badge-danger">5</span>
+                        </a>
+                    </li>*@
+
+                <li class="nav-item d-md-down-none">
+                    <a href="#" data-toggle="modal" data-target="#modal-6">
+                        <i class="fa fa-envelope-open"></i>
+                        <span class="badge badge-pill badge-danger" id="AyEmails">0</span>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="~/imgs/icon-256x256.png" class="avatar avatar-sm" alt="logo">
+                        <span class="small ml-1 d-md-down-none">你的名字</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-header">用户</div>
+
+                        <a href="/Risk/Index" class="dropdown-item" align="center">
+                            <i class="fa fa-user"></i> 个人信息
+                        </a>
+
+                        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-6" align="center">
+                            <i class="fa fa-envelope"></i> 系统邮件
+                        </a>
+
+                        <div class="dropdown-header">设置</div>
+
+                        @*<a href="#" class="dropdown-item">
+                                <i class="fa fa-bell"></i> Notifications
+                            </a>*@
+
+                        @*<a href="#" class="dropdown-item" align="center">
+                                <i class="fa fa-wrench"></i> 修改密码
+                            </a>*@
+
+                        <a href="/Risk/Logout" class="dropdown-item" align="center">
+                            <i class="fa fa-lock"></i> 登出
+                        </a>
+                    </div>
+                </li>
             </ul>
-        </div>
-        <div class="main-ltright">〉</div>
-    </div>
+        </nav>
 
-    <div class="main-left">
-        <h1 class="logo"></h1>
-        <div id="sidebar-nav" class="sidebar-nav">
+        <div class="main-container">
+            <div class="sidebar">
+                <nav class="sidebar-nav">
+                    <ul class="nav">
+                        <li class="nav-title">个人信息</li>
 
-            @foreach (var menuhead in ViewBag.Menus)
-            {
-                if (menuhead.HideStatus == 0 && menuhead.PermissionType.Contains("Show"))
-                {
-                    <div class="list-group selected" style="display: none;">
-                        <h1 title="@menuhead.Title"><img src="/skin/default/nav/sys.png"></h1>
-                        <div class="list-wrap">
-                            <h2>@menuhead.Title<i></i></h2>
-                            <ul style="display: block;">
-                                @if (menuhead.MenuLefts != null)
-                                {
-                                    foreach (var menuleft in menuhead.MenuLefts)
-                                    {
-                                        if (menuleft.HideStatus == 0)
-                                        {
-                                            if (menuleft.State == 0 && menuleft.MenuDetails != null)
-                                            {
-                                                <li>
-                                                    <a navid="sys_custom_reply" href="javascript:void(0)">
-                                                        <span>@menuleft.Title</span>
-                                                        <b class="expandable close"></b>
-                                                    </a>
-                                                    <ul style="display: none;">
-                                                        @if (menuleft.MenuDetails != null)
-                                                        {
-                                                            foreach (var menudetails in menuleft.MenuDetails)
-                                                            {
-                                                                if (menudetails.HideStatus == 0 && menudetails.PermissionType.Contains("View"))
-                                                                {
-                                                                    <li>
-                                                                        <a navid="@menudetails.Action" href="/@menudetails.Controller/@menudetails.Action@menudetails.Keywords" rel="author" @*target="mainframe"*@>
-                                                                            <span>@menudetails.Title</span>
-                                                                        </a>
-                                                                    </li>
-                                                                }
-                                                            }
-                                                        }
-                                                    </ul>
-                                                </li>
-                                            }
-                                            else
-                                            {
-                                                if (menuleft.PermissionType.Contains("View"))
-                                                {
-                                                    <li>
-                                                        <a navid="@menuleft.Action" href="/@menuleft.Controller/@menuleft.Action@menuleft.Keywords" @*target="mainframe"*@>
-                                                            <span>@menuleft.Title</span>
-                                                        </a>
-                                                    </li>
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                        <li class="nav-item">
+                            <a href="/Risk/Index" class="nav-link">
+                                <i class="icon icon-info"></i> 个人信息
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/Risk/未知" class="nav-link">
+                                <i class="icon-lock"></i> 未知
+                            </a>
+                        </li>
+
+                        <li class="nav-item nav-dropdown">
+                            <a href="#" class="nav-link nav-dropdown-toggle">
+                                <i class="icon icon-calculator"></i> 未知 <i class="fa fa-caret-left"></i>
+                            </a>
+
+                            <ul class="nav-dropdown-items">
+
+                                <li class="nav-item">
+                                    <a href="/Risk/未知" class="nav-link">
+                                        &nbsp;  &nbsp;  &nbsp; <i class="icon icon-calculator"></i>未知
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Risk/未知" class="nav-link">
+                                        &nbsp;  &nbsp;  &nbsp; <i class="icon icon-calculator"></i> 未知
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Risk/未知" class="nav-link">
+                                        &nbsp;  &nbsp;  &nbsp; <i class="icon icon-calculator"></i> 未知
+                                    </a>
+                                </li>
                             </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/Risk/未知" class="nav-link">
+                                <i class="icon-present"></i> 未知
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row" id="VueApp">
+                        @RenderBody()
+                    </div>
+                    <div>
+                        <div class="modal fade" id="modal-6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-primary border-0">
+                                        <h5 class="modal-title text-white">系统消息</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body p-3">
+
+                                        <div id="emaillistbox">
+
+                                        </div>
+
+                                        <div id="emailconbox" style="display:none">
+                                            <span class="spemailtitle">sad</span>
+                                            <span class="spemailcon">hhhhh</span>
+                                            <span class="sptime">2020-06-01 11:05:08</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer border-0">
+                                        <button type="button" class="btn btn-link btn-outline-primary" id="btnReturn" style="display:none">返回</button>
+                                        <button type="button" class="btn btn-link btn-outline-danger" data-dismiss="modal">关闭</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                }
-            }
+                </div>
+                @RenderSection("jsbottom", false)
+            </div>
         </div>
     </div>
-
-    <!--加载效果-->
-    <div class="loading">
-        <div class="pic">
-            <!--外面的圈圈-->
-            <span></span>
-            <!--数据加载进度（百分比数字）-->
-            <b>加载中...</b>
-        </div>
-    </div>
-
-    <div class="main-container">
-        @RenderBody()
-    </div>
-    @RenderSection("jsbottom", false)
 </body>
 </html>
