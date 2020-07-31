@@ -1,10 +1,12 @@
-﻿using Share.Facade;
+﻿using Microsoft.Extensions.Logging;
+using Share.Facade;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UniversalFrame.Core.Utils;
 using UniversalFrame.Core.Utils.Data;
+using UniversalFrame.Core.Web;
 using UniversalFrame.Core.Web.Api;
 using UniversalFrame.Core.Web.Api.Routing;
 
@@ -14,23 +16,35 @@ namespace RiskManager.API
     {
         private const string LogFilePath = "Log/API/Share/";
 
-        protected override bool Initialize(AshxRouteData ashxRoute, out IAipOut aipOut)
+        //存放日志服务
+        private ILogger _logger;
+
+        protected override bool Initialize(AshxRouteData ashxRoute, out IApiOut aipOut)
         {
+            if (_logger == null)
+            {
+                //获取日志输出服务
+                ILoggerFactory loggerFactory = ashxRoute.HttpContext.GetService<ILoggerFactory>();//ILogger loggerFactory = context.GetService<ILogger<Share>>();
+                _logger = loggerFactory.CreateLogger("api");
+            }
+
             aipOut = null;
             //aipOut = ApiOut.Json(new { msg = "取消访问。" });
             return true;
         }
 
-        protected override IAipOut AshxException(AshxException ex)
+        protected override IApiOut AshxException(AshxException ex)
         {
             Log.Error("ShareApi", ex, LogFilePath);
             return ApiOut.Json(new { msg = "发生异常。" });
         }
 
-        public IAipOut GetApi() => ApiOut.Json(new { msg = "最小，路由版本api。" });
+        public IApiOut GetApi() => ApiOut.Json(new { msg = "最小，路由版本api。" });
 
-        public async Task<IAipOut> GetTaskApi() 
+        public async Task<IApiOut> GetTaskApi() 
         {
+            _logger.LogInformation("打印日志", "我是GetTaskApi接口。");
+
             var Pager = FacadeManage.AideSqlFacade.GetPager();
             if (Pager.CheckedPageSet())
             {
@@ -49,7 +63,7 @@ namespace RiskManager.API
         /// 全新查询写法
         /// </summary>
         /// <returns></returns>
-        public async Task<IAipOut> GetSelect() 
+        public async Task<IApiOut> GetSelect() 
         {
             var data = FacadeManage.AideSqlFacade.Select();
             if (data.IsEmpty())
@@ -61,8 +75,8 @@ namespace RiskManager.API
             return await ApiOut.JsonAsyn(ajax);
         }
 
-        public IAipOut Get() => ApiOut.View();
+        public IApiOut Get() => ApiOut.View();
 
-        public async Task<IAipOut> GetTask() => await ApiOut.ViewAsyn();
+        public async Task<IApiOut> GetTask() => await ApiOut.ViewAsyn();
     }
 }
