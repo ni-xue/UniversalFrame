@@ -8,3 +8,22 @@
 3. 在此，非常感谢，长久以来对作者支持的小伙伴们，感觉一路有你。
 4. 相关开发文档：https://blog.csdn.net/qq_33484542
 5. 使用API文档：http://core.turl.xin/
+
+# 执照
+``` a
+
+Copyright 2018-2020 Gianluca Cacace
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+```
