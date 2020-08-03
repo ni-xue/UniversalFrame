@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using UniversalFrame.Core.Utils;
 using UniversalFrame.Core.Web;
 using UniversalFrame.Core.Web.Api.Builder;
+using UniversalFrame.Core.Web.Session;
 
 namespace RiskManager
 {
@@ -44,6 +45,8 @@ namespace RiskManager
             }
 
             app.UseSession();
+
+            //app.UseAsSession();//可以暂时使用框架自带Session
 
             app.UseStaticFiles();
 
