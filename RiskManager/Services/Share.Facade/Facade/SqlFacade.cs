@@ -1,4 +1,5 @@
-﻿using Share.Data.Factory;
+﻿using Microsoft.Extensions.Logging;
+using Share.Data.Factory;
 using Share.IData;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,15 @@ namespace Share.Facade.Facade
         public SqlFacade()
         {
             ShareDB = DbFactory.GetShareDBProvider();
+        }
+
+        /// <summary>
+        /// 系统日志操作
+        /// </summary>
+        /// <param name="logger"></param>
+        public void SetLogger(ILogger logger) 
+        {
+            ShareDB.SetLogger(logger);
         }
 
         public DataSet Get()

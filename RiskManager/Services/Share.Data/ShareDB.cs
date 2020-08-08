@@ -1,4 +1,5 @@
-﻿using Share.IData;
+﻿using Microsoft.Extensions.Logging;
+using Share.IData;
 using System;
 using System.Data;
 using UniversalFrame.Core.SqlKernel;
@@ -15,6 +16,11 @@ namespace Share.Data
         public ShareDB(string connectionString, DbProviderType dbProviderType, IDbProvider dbProvider) : base(connectionString, dbProviderType, dbProvider)
         {
             aideIsystem = GetTableProvider("system");//注册生成对指定表的操作对象
+        }
+
+        public void SetLogger(ILogger logger) 
+        {
+            base.Database.SetLogger(logger);
         }
 
         public DataSet Get() 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Data;
 using UniversalFrame.Core.SqlKernel;
 
@@ -9,6 +10,7 @@ namespace Share.IData
     /// </summary>
     public interface IShareDB
     {
+        void SetLogger(ILogger logger);//日志模块
         DataSet Get();
 
         DataTable Select();
