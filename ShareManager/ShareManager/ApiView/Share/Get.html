@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>春节倒计时</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style>
+#timer{width: 800px;height: 200px;background-color: blueviolet;margin: auto;color: cornsilk;line-height: 300px;text-align: center;font-size: 20px}
+#timer1{width: 800px;height: 200px;background-color: blueviolet;margin: auto;color: cornsilk;line-height: 50px;text-align: center;font-size: 20px}
+</style>
+<script>
+    $(document).ready(function(){//JQ的入口函数
+        $('#timer').text("2021年春节倒计时开始");
+		
+		$('#timer1').text("2021年回家倒计时开始");
+		
+        function daoshiji(){
+            var date=new Date();//创建当前时间
+            var dataend=new Date('2021-02-11 24:00:00');//设置时间
+            var now=date.getTime();//获取1970到当前时间搓
+            var end=dataend.getTime();//获取1970到设置时间搓
+            var shift=end-now;//时间差
+            var day,hour,minute,sencond,s;
+            s=Math.floor(shift/1000);//毫秒转为总秒数
+            if(s>0){
+                day=parseInt(s/60/60/24);//毫秒转为天数
+                hour=parseInt((s%(60*60*24))/(60*60));//毫秒转为小时;(s%(60*60*24)取余表示去掉小时后还剩下的秒数
+                minute=parseInt((s%(60*60))/(60));//毫秒转为分钟
+                sencond=parseInt(s%60);//毫秒转为描述
+                if(sencond<parseInt(10)){//单位数 前+0
+                     $('#timer').text("2021年春节倒计时:"+day+"天"+hour+"时"+minute+"分0"+sencond+"秒");
+                }else{
+                    $('#timer').text("2021年春节倒计时:"+day+"天"+hour+"时"+minute+"分"+sencond+"秒");
+                }
+            }else{
+                $('#timer').text('2021年春节已开始').css('color','#333');
+            }
+        }
+		
+		function daoshiji1(){
+            var date=new Date();//创建当前时间
+            var dataend=new Date('2021-01-30 24:00:00');//设置时间
+            var now=date.getTime();//获取1970到当前时间搓
+            var end=dataend.getTime();//获取1970到设置时间搓
+            var shift=end-now;//时间差
+            var day,hour,minute,sencond,s;
+            s=Math.floor(shift/1000);//毫秒转为总秒数
+            if(s>0){
+                day=parseInt(s/60/60/24);//毫秒转为天数
+                hour=parseInt((s%(60*60*24))/(60*60));//毫秒转为小时;(s%(60*60*24)取余表示去掉小时后还剩下的秒数
+                minute=parseInt((s%(60*60))/(60));//毫秒转为分钟
+                sencond=parseInt(s%60);//毫秒转为描述
+                if(sencond<parseInt(10)){//单位数 前+0
+                     $('#timer1').text("2021年回家倒计时:"+day+"天"+hour+"时"+minute+"分0"+sencond+"秒");
+                }else{
+                    $('#timer1').text("2021年回家倒计时:"+day+"天"+hour+"时"+minute+"分"+sencond+"秒");
+                }
+            }else{
+                $('#timer1').text('2021年回家已开始').css('color','#333');
+            }
+        }
+		
+       setInterval(daoshiji,1000);//此处不要() 
+	   
+	   setInterval(daoshiji1,1000);//此处不要() 
+    }) 
+</script>
+<body>
+    <div id="timer"></div>
+	<div id="timer1"></div>
+</body>
+</html>

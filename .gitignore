@@ -2,18 +2,17 @@
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
 
-/RiskManager/Services/Share.Data/obj
-/RiskManager/Services/Share.IData/obj
-/RiskManager/Services/Share.Facade/obj
-/RiskManager/Services/Share.Entity/obj
-/RiskManager/RiskManager/obj
+/ShareManager/Services/Share.Data/obj
+/ShareManager/Services/Share.IData/obj
+/ShareManager/Services/Share.Facade/obj
+/ShareManager/Services/Share.Entity/obj
+/ShareManager/ShareManager/obj
 /.vs
-/RiskManager/RiskManager/bin
-/RiskManager/Services/Share.Data/bin
-/RiskManager/Services/Share.Entity/bin
-/RiskManager/Services/Share.Facade/bin
-/RiskManager/Services/Share.IData/bin
-/RiskManager/.vs
-/RiskManager/RiskManager/.config
-/RiskManager/RiskManager/Properties/PublishProfiles
-/ShareManager
+/ShareManager/ShareManager/bin
+/ShareManager/Services/Share.Data/bin
+/ShareManager/Services/Share.Entity/bin
+/ShareManager/Services/Share.Facade/bin
+/ShareManager/Services/Share.IData/bin
+/ShareManager/.vs
+/ShareManager/ShareManager/.config
+/ShareManager/ShareManager/Properties/PublishProfiles
