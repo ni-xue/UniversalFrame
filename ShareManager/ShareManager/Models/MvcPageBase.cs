@@ -10,7 +10,10 @@ using Tool.Web;
 
 namespace ShareManager.Models
 {
-    public class RiskPageBase : Controller
+    /// <summary>
+    /// MVC 父类继承
+    /// </summary>
+    public class MvcPageBase : Controller
     {
         /// <summary>
         /// 获取真正的登录URL

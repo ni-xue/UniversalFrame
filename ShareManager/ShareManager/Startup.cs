@@ -17,20 +17,30 @@ using Tool.Web.Session;
 
 namespace ShareManager
 {
+    /// <summary>
+    /// Web 服务 启动配置
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="configuration">配置信息接口</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// 默认获取配置信息接口
+        /// </summary>
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession();
-            services.AddMvc(o => o.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+            services.AddSession();//注册Session
+            services.AddMvc(o => o.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Latest); //注册MVC
             services.AddAshx(o => o.IsAsync = true)//注册api。
                 .AddHttpContext();//注册静态方式的HttpContext对象获取。
             FacadeManage.AddSql(services);//采用更安全的方式注册数据库。
@@ -40,9 +50,9 @@ namespace ShareManager
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
 
-            if (env.IsDevelopment())
+            if (env.IsDevelopment()) //当存在 appsettings.Development.json 文件的时 为 true
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); // 会采用开发模式，进行页面错误异常打印。
             }
             else
             {
@@ -55,21 +65,29 @@ namespace ShareManager
 
             //app.UseAsSession();//可以暂时使用框架自带Session
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(); //运行用户请求wwwroot文件下的资源文件。
 
+            //注册路由规则（MVC）
             app.UseAshx(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "Api/{controller=RiskServers}/{action=GetAsync}");
+                    template: "Api/{controller=ShareServers}/{action=GetAsync}");
             });
+            //注册路由规则（Api）
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Risk}/{action=Login}/{id?}");
+                    template: "{controller=Share}/{action=Login}/{id?}");
             });
         }
+
+        /// <summary>
+        /// 创建一个在线上模式下，捕获全局异常的统一接口
+        /// </summary>
+        /// <param name="context">请求发起对象</param>
+        /// <param name="exception">异常信息</param>
         public void AllException(HttpContext context, Exception exception)
         {
             context.Response.Write("An unknown error has occurred!");

@@ -13,14 +13,42 @@ namespace Share.Data
     {
         private readonly ITableProvider aideIsystem;//开始创建的表操作对象
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="connectionString">连接字符串</param>
+        /// <param name="dbProviderType">指定数据库</param>
+        /// <param name="dbProvider">数据库底层实现基于的接口</param>
         public ShareDB(string connectionString, DbProviderType dbProviderType, IDbProvider dbProvider) : base(connectionString, dbProviderType, dbProvider)
         {
             aideIsystem = GetTableProvider("system");//注册生成对指定表的操作对象
+            
+            //aideIsystem = GetTableProvider<ITableProvider>("system"); //可供开发者自行实现，自己需要的效果，请实现其接口 ITableProvider 
+        }
+
+        /// <summary>
+        /// 通过修改
+        /// </summary>
+        private void SetConnectionString() 
+        {
+            Database.GetAndSetConnectionString("修改成新的连接字符串。");
         }
 
         public void SetLogger(ILogger logger) 
         {
             base.Database.SetLogger(logger);
+        }
+
+        /// <summary>
+        /// 通过执行修改操作，返回受影响行数
+        /// </summary>
+        /// <returns>返回行数</returns>
+        public int ExecuteNonQuery() 
+        {
+            return Database.ExecuteNonQueryAsync("INSERT INTO system(id,key_en,key_cn,value)VALUES(@Id,'1','1','1')", new { Id = 4 }).Result; //异步请求
+
+            return Database.ExecuteNonQuery("INSERT INTO system(id,key_en,key_cn,value)VALUES(@Id,'1','1','1')", new { Id = 4 }); //原本方式
+
         }
 
         public DataSet Get() 

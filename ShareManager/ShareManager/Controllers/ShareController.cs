@@ -8,10 +8,13 @@ using Share.Facade;
 
 namespace ShareManager.Controllers
 {
-    public class RiskController : RiskPageBase
+    public class ShareController : MvcPageBase
     {
-
-        public RiskController(FacadeManage facade) 
+        /// <summary>
+        /// 构造函数，用于IOC注入
+        /// </summary>
+        /// <param name="facade"></param>
+        public ShareController(FacadeManage facade) 
         {
             //facade.aideSqlFacade.Get();测试
         }
@@ -21,8 +24,6 @@ namespace ShareManager.Controllers
             return View();
         }
 
-
-
         #region 登陆模块
 
         public IActionResult Login()
@@ -31,5 +32,6 @@ namespace ShareManager.Controllers
         }
 
         #endregion
+
     }
 }
