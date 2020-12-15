@@ -19,13 +19,13 @@ namespace ShareManager.Models
         /// 获取真正的登录URL
         /// </summary>
         /// <returns></returns>
-        public string LoginUrl { get => $"{Request.Scheme}://{Request.Host.Value}/Risk/Login"; }
+        public string LoginUrl { get => $"{Request.Scheme}://{Request.Host.Value}/Share/Login"; }
 
         /// <summary>
         /// 获取真正的登录URL
         /// </summary>
         /// <returns></returns>
-        public string IndexUrl { get => $"{Request.Scheme}://{Request.Host.Value}/Risk/Index"; }
+        public string IndexUrl { get => $"{Request.Scheme}://{Request.Host.Value}/Share/Index"; }
 
         /// <summary>
         /// 当前请求地址
