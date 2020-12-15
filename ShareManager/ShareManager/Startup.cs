@@ -74,6 +74,7 @@ namespace ShareManager
                     name: "default",
                     template: "Api/{controller=ShareServers}/{action=GetAsync}");
             });
+
             //注册路由规则（Api）
             app.UseMvc(routes =>
             {

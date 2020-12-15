@@ -19,13 +19,13 @@ namespace ShareManager.Models
         /// 获取真正的登录URL
         /// </summary>
         /// <returns></returns>
-        public string LoginUrl { get => $"{Request.Scheme}://{Request.Host.Value}/Risk/Login"; }
+        public string LoginUrl { get => $"{Request.Scheme}://{Request.Host.Value}/Share/Login"; }
 
         /// <summary>
         /// 获取真正的登录URL
         /// </summary>
         /// <returns></returns>
-        public string IndexUrl { get => $"{Request.Scheme}://{Request.Host.Value}/Risk/Index"; }
+        public string IndexUrl { get => $"{Request.Scheme}://{Request.Host.Value}/Share/Index"; }
 
         /// <summary>
         /// 当前请求地址
@@ -38,7 +38,7 @@ namespace ShareManager.Models
             string controller = context.ActionDescriptor.RouteValues["controller"];
             string action = context.ActionDescriptor.RouteValues["action"];
 
-            if (controller == "Risk" && action == "Login") return;
+            if (controller == "Share" && action == "Login") return;
             if (!UserLogon())
             {
                 string loginUrl = LoginUrl;
