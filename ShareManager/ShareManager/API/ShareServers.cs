@@ -22,6 +22,11 @@ namespace ShareManager.API
             return true;
         }
 
+        protected override void OnResult(Ashx ashx)
+        {
+            //写一些类似公共日志的东西
+        }
+
         protected override void AshxException(AshxException ex)
         {
             ex.ExceptionHandled = true;
@@ -37,7 +42,7 @@ namespace ShareManager.API
         /// 登陆
         /// </summary>
         [Ashx(ID = "ILogin", State = AshxState.Post)]
-        public void Login(string LoginName, string LoginPwd)
+        public void Login([ApiVal(Val.Form)] string LoginName, [ApiVal(Val.Form)] string LoginPwd)
         {
             AjaxJson _ajv = new AjaxJson();
             try

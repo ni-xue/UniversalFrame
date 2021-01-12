@@ -19,7 +19,7 @@ namespace ShareManager.API
         //存放日志服务
         private ILogger _logger;
 
-        protected override bool Initialize(AshxRouteData ashxRoute, out IApiOut aipOut)
+        protected override IApiOut Initialize(AshxRouteData ashxRoute)
         {
             if (_logger == null)
             {
@@ -28,9 +28,13 @@ namespace ShareManager.API
                 _logger = loggerFactory.CreateLogger("api");
             }
 
-            aipOut = null;
-            //aipOut = ApiOut.Json(new { msg = "取消访问。" });
-            return true;
+            //return ApiOut.Json(new { msg = "取消访问。" });
+            return null;
+        }
+
+        protected override void OnResult(AshxRouteData ashxRoute)
+        {
+            //写一些类似公共日志的东西
         }
 
         protected override IApiOut AshxException(AshxException ex)
@@ -75,8 +79,19 @@ namespace ShareManager.API
             return await ApiOut.JsonAsyn(ajax);
         }
 
-        public IApiOut Get() => ApiOut.View();
+        public IApiOut Get() => ApiOut.View();//默认路径Views\Share\Get.html
 
-        public async Task<IApiOut> GetTask() => await ApiOut.ViewAsyn();
+        public IApiOut Get1() => ApiOut.View(@"Views\Share\Get.html");//强制指定路径
+
+        public async Task<IApiOut> GetTask() => await ApiOut.ViewAsyn();//默认路径Views\Share\GetTask.html
+
+        public async Task<IApiOut> GetTask1() => await ApiOut.ViewAsyn(@"Views\Share\GetTask.html");//强制指定路径
+
+        /// <summary>
+        /// 重定向URL
+        /// </summary>
+        /// <param name="url">新的位置</param>
+        /// <returns></returns>
+        public async Task<IApiOut> Redirect([ApiVal(Val.Query)] string url) => await ApiOut.RedirectAsyn(url);
     }
 }
