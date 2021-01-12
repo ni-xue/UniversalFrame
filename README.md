@@ -15,10 +15,11 @@
 
 后续，打算更新部分界面效果，附带数据
 
-# 最新更新-年前最后一次版本
+# 年前最后一次版本-V2.2.0
 介绍地址：https://blog.csdn.net/qq_33484542/article/details/112523810
 更新内容：
 1. 用于注册请求流大小限制的上限。（示例为解决上传文件的大小）
+```csharp
 public void ConfigureServices(IServiceCollection services)
 { 
     app.SetFormOptions(optins => 
@@ -26,6 +27,7 @@ public void ConfigureServices(IServiceCollection services)
       optins.MultipartBodyLengthLimit = 60000000;用于处理上传文件大小被限制的问题。
     }) 
 }
+```
 
 2. 优化 ApiOut.View 方法，默认视图存储位置（示例：\wwwroot\Views\类名\方法名.html）
 
@@ -38,6 +40,7 @@ public void ConfigureServices(IServiceCollection services)
 6. 优化 SQL 所有可以传入 where 条件的接口均允许传入（ (NOLOCK)WHERE）该参数。
 
 7. 优化 ApiVal 增加第二个条件，允许指定Key值，处理部分无法通过代码实现的写法。（示例如下：）
+```csharp
  public async Task<IApiOut> Upload(
     [ApiVal(Val.File)] IFormFile file_data, 
     [ApiVal(Val.Header, ".123")] string abc, 
@@ -46,6 +49,7 @@ public void ConfigureServices(IServiceCollection services)
     await file_data.Save(AppContext.BaseDirectory + "Upload\\" + file_data.FileName);//顺带实现了上传保存文件的示例
     return await ApiOut.JsonAsyn(new { mag = "保存成功！" });
 }
+```
 
 8. 多个已知Bug优化。
 
