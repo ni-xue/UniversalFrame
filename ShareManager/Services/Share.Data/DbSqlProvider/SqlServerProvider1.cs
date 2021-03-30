@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Text;
 using Tool;
 using Tool.SqlCore;
@@ -10,9 +10,9 @@ using Tool.SqlCore;
 namespace Share.Data.DbSqlProvider
 {
 	/// <summary>
-	/// 获取相关SqlServer对应的数据类型(System.Data.SqlClient)
+	/// 获取相关SqlServer对应的数据类型(Microsoft.Data.SqlClient)
 	/// </summary>
-	public class SqlServerProvider : IDbProvider
+	public class SqlServerProvider1 : IDbProvider
 	{
 		/// <summary>
 		/// 根据<see cref="Type"/>类型获取对应的类型

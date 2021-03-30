@@ -68,9 +68,9 @@
         function btnSubmit() {
             var LoginName = $("#LoginName").val();
             var LoginPwd = $("#LoginPwd").val();
-            $.post('Api/RiskServers/ILogin', { LoginName, LoginPwd }, function (data) {
+            $.post('Api/ShareServers/ILogin', { LoginName, LoginPwd }, function (data) {
                 if (data.code === 0) {
-                    location.href = '/Risk/Index';
+                    location.href = '/Share/Index';
                 }
                 alert(data.msg);
             }, 'json');

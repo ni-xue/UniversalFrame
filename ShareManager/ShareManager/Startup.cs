@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Share.Facade;
 using Tool.Utils;
 using Tool.Web;
-using Tool.Web.Api.Builder;
+using Tool.Web.Builder;
 using Tool.Web.Session;
 
 namespace ShareManager
@@ -49,7 +49,6 @@ namespace ShareManager
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-
             if (env.IsDevelopment()) //当存在 appsettings.Development.json 文件的时 为 true
             {
                 app.UseDeveloperExceptionPage(); // 会采用开发模式，进行页面错误异常打印。
@@ -70,8 +69,13 @@ namespace ShareManager
             //注册路由规则（MVC）
             app.UseAshx(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "Api/{controller=ShareServers}/{action=GetAsync}");
+
+                routes.MapApiRoute(
+                    name: "Api",
+                    areaName: "ShareManager.Api",
                     template: "Api/{controller=ShareServers}/{action=GetAsync}");
             });
 

@@ -8,9 +8,9 @@ using Tool.Utils;
 using Tool.Utils.Data;
 using Tool.Web;
 using Tool.Web.Api;
-using Tool.Web.Api.Routing;
+using Tool.Web.Routing;
 
-namespace ShareManager.API
+namespace ShareManager.Api
 {
     public class Share : MinApi
     {

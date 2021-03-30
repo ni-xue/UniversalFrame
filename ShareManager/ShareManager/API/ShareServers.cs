@@ -11,7 +11,7 @@ using Tool;
 using Tool.Web;
 using Share.Entity;
 
-namespace ShareManager.API
+namespace ShareManager.Api
 {
     public class ShareServers : ApiAshx
     {
