@@ -15,43 +15,30 @@
 
 后续，打算更新部分界面效果，附带数据
 
-# 年前最后一次版本-V2.2.0
-介绍地址：https://blog.csdn.net/qq_33484542/article/details/112523810
+# 3.0.0版本
+介绍地址：https://blog.csdn.net/qq_33484542/article/details/114820469
 更新内容：
-1. 用于注册请求流大小限制的上限。（示例为解决上传文件的大小）
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{ 
-    app.SetFormOptions(optins => 
-    {
-      optins.MultipartBodyLengthLimit = 60000000;用于处理上传文件大小被限制的问题。
-    }) 
-}
-```
+1. 新增路由自定义模式 MapApiRoute
 
-2. 优化 ApiOut.View 方法，默认视图存储位置（示例：\wwwroot\Views\类名\方法名.html）
+2. 新增特性 路由 [AshxRoute(“url/{id?}”)] 支持接口/控制，注册
 
-3. 新增 ApiOut.File, 下载文件流的函数。
+3. 新增DbProviderType.SqlServer1 用于包括新的 SqlServer（SKD:Microsoft.Data.SqlClient）
 
-4. 新增 IFormFile.Save 保存上传的文件
+4. 优化Api命名空间引用复杂问题，简化引用。
 
-5. 新增 OnResult 函数接口，同时实现了 （ApiAshx/MinApi）两种路由模式
+5. 优化 TcpFrame 命名空间下的，全部有关部分，重新定义新的协议，支持字节流传输和字符串传输，基础协议更小。
 
-6. 优化 SQL 所有可以传入 where 条件的接口均允许传入（ (NOLOCK)WHERE）该参数。
+6. ClientFrame 模块 新增 心跳功能，需要手动开启 AddKeepAlive(5);（心跳模式开启后，将会自动检查是否断开连接）
 
-7. 优化 ApiVal 增加第二个条件，允许指定Key值，处理部分无法通过代码实现的写法。（示例如下：）
-```csharp
- public async Task<IApiOut> Upload(
-    [ApiVal(Val.File)] IFormFile file_data, 
-    [ApiVal(Val.Header, ".123")] string abc, 
-    [ApiVal(Val.Header, "User-Agent")] string agent)
-{
-    await file_data.Save(AppContext.BaseDirectory + "Upload\\" + file_data.FileName);//顺带实现了上传保存文件的示例
-    return await ApiOut.JsonAsyn(new { mag = "保存成功！" });
-}
-```
+7. ApiPacket 允许发起方，发送超过配置包大小的包，系统会自动分包处理
 
-8. 多个已知Bug优化。
+8. 重新优化多宝协议，现在更安全，更可靠。
+
+9. ClientFrame 转发模式，优化，现在性能可靠。
+
+10. TcpFrame 模块下存在大量与内存使用有关的资源，目前已经全部通过GC管理起来，内存泄漏无需关心，后期会着重处理有关GC部分。
+
+11. 多个已知Bug优化。
 
 # 执照
 ``` a
